@@ -12,7 +12,7 @@ After wrapping up a Bachelor of Science with a Major in Data Science in 2020, I'
 * ✉️  You can contact me at [nickbarlow@live.com.au](mailto:nickbarlow@live.com.au)
 * 🚀  I'm currently working on [GRV\_model](http://https://github.com/nickojelly/grvmodel)
 * 🧠  I'm learning Custom loss functions
-* 🤝  I'm open to collaborating on anyhting pytorch, rl
+* 🤝  I'm open to collaborating on anything pytorch, rl
 
 ### Skills
 
@@ -37,3 +37,5 @@ After wrapping up a Bachelor of Science with a Major in Data Science in 2020, I'
 <b>My GitHub Stats</b>
 
 <a href="http://www.github.com/nickojelly"><img src="https://github-readme-stats.vercel.app/api?username=nickojelly&show_icons=true&hide=&count_private=true&title_color=0891b2&text_color=ffffff&icon_color=0891b2&bg_color=1c1917&hide_border=true&show_icons=true" alt="nickojelly's GitHub stats" /></a>
+ 
+ 
