@@ -12,7 +12,7 @@ DefaultContentLanguage           = "en"                    # Default language fo
     fadeIn                       = true                    # Turn on/off the fade-in effect
     fadeInIndex                  = false                   # Turn on/off the fade-in effect on the index page even if fade-in was otherwise turned off
     dateFormat                   = "Jan 2, 2006"
-    email                        = "nickbarlow@live.com.au"   # E-mail address for contact section
+    email                        = "nick@nbdata.co"   # E-mail address for contact section
     # customCSS                  = ["foo.css"]             # Include custom css files placed under assets/
     # customJS                   = ["foo.js"]              # Include custom JavaScript files placed under assets/
     # plausible                  = true                    # Use Plausible analytics (requires an account at Plausible.io)
@@ -55,6 +55,14 @@ DefaultContentLanguage           = "en"                    # Default language fo
     # Icon pack "fab" includes social network icons, see: https://fontawesome.com/icons?d=gallery&s=brands&m=free
     # Icon pack "fas" includes solid style icons, see: https://fontawesome.com/icons?d=gallery&s=solid&m=free
 
+    [[params.social]]
+        url   = "https://www.kaggle.com/nickbarlow"
+        icon  = "kaggle" # icon name without the 'fa-'
+        icon_pack = "fab"
+    [[params.social]]
+        url   = "https://github.com/nickojelly"
+        icon  = "github" # icon name without the 'fa-'
+        icon_pack = "fab"
     [[params.social]]
         url   = "https://www.linkedin.com/in/nicholas-barlow97/"
         icon  = "linkedin-in" # icon name without the 'fa-'
