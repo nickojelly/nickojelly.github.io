@@ -2,7 +2,7 @@
 title: "GrainCorp"
 weight: 2
 resources:
-    - src: graincorp-vector-logo.png
+    - src: gc_vector.png
       params:
           weight: -100
 project_timeframe: 2021-2023

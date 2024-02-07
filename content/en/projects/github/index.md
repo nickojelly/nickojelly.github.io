@@ -2,7 +2,7 @@
 title: "Race Modelling"
 weight: 2
 resources:
-    - src: GitHub-logo.jpg
+    - src: gh-vector.jpg
       params:
           weight: -100
 project_timeframe: 2020-Present
