@@ -16,4 +16,3 @@
     {{ $style := resources.Get . }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous" media="screen">
 {{- end }}
-<link rel="stylesheet" href="/css/custom.css">
