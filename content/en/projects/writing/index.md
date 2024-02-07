@@ -8,9 +8,9 @@ resources:
 project_timeframe: 2020-Present
 ---
 
-The GRV Greyhound Racing Model showcases my innovation in predictive machine learning. Leveraging custom neural network architectures, this project demonstrated my ability to implement complex ML models that tackled non-uniform time series data. It stands as a testament to my ML proficiency and hands-on experience with end-to-end development, from data aggregation to model inference.
+The GRV Greyhound Racing Model represents a personal project in deep machine learning, aimed at predicting the outcomes of races across Australia and New Zealand. Tailoring a custom Gated Recurrent Unit model to navigate the complexities of non-uniform time series data in greyhound racing, the project serves as a prime example of innovative problem-solving and application of advanced machine learning techniques.
 
-- Constructed a predictive ML model for greyhound race outcomes.
-- Integrated automated API data-feeds for model accuracy.
-- Developed a custom GRU to handle unique time series challenges.
-- Enabled remote monitoring with a live performance dashboard.
+- Developed a deep learning model for predicting race outcomes.
+- Automated real-time data updates via integrated API feeds.
+- Engineered a novel solution using custom GRU for time series analysis.
+- Deployed a live dashboard for remote monitoring of model training.

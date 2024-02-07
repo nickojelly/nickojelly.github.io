@@ -8,9 +8,9 @@ resources:
 project_timeframe: 2021-2023
 ---
 
-At Graincorp, I operated as a Data Analyst contributing significantly to operational excellence. I spearheaded the development of key performance indicators and live dashboards, which streamlined reporting processes and enhanced data-driven decision-making. My expertise in automating data pipelines significantly improved the efficiency and accuracy of seasonal hiring across East Coast Australia.
+Graincorp is a leading agribusiness, specializing in grain and edible oil storage and handling. During tenure, innovative data solutions for various operational challenges were introduced. Key initiatives included automating data processes to enhance the seasonal hiring workflow and developing real-time dashboards for harvest management, thereby driving significant efficiency and decision-making improvements within the company.
 
-- Developed live dashboards for real-time management decision-making.
-- Automated manual reports, reducing team overhead.
-- Created KPIs that increased task completion by 25%.
-- Managed and tracked over 10,000 job applicants using ETL.
+- Pioneered automation of manual reporting, reducing team workload.
+- Designed and implemented live dashboards for management metrics.
+- Formulated new KPIs, improving task completion rates significantly.
+- Transformed HR's seasonal hiring with an automated tracking system for over 10,000 applicants.

@@ -8,9 +8,9 @@ resources:
 project_timeframe: 2020-Present
 ---
 
-Participation in the Kaggle LuxAI Challenge was an enriching opportunity that allowed me to refine my data science and machine learning skills in a competitive environment. It tested my abilities to devise robust solutions under pressure and to innovatively apply AI in strategy game scenarios, furthering my expertise in crafting AI algorithms for complex problem-solving.
+The Kaggle LuxAI Challenge offered a platform to harness AI for strategizing in an adversarial gaming setting, promoting innovative thinking and sharp data science skills. The challenge demanded quick iteration and clever algorithm application to create effective game strategies and provided a collaborative environment to compete with global participants, enriching strategic problem-solving abilities.
 
-- Engaged in complex AI algorithms through competitive coding.
-- Developed strategic solutions under competitive challenge constraints.
-- Enhanced machine learning skills in a rich collaborative platform.
-- Demonstrated creative problem-solving in a gamified environment.
+- Tackled complex strategic AI applications within a competitive setting.
+- Innovatively applied AI algorithms to game scenarios through the LuxAI Challenge.
+- Showcased agility in developing solutions against stringent competitive constraints.
+- Strengthened machine learning acumen in an intellectually stimulating community.
