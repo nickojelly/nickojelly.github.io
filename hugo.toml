@@ -60,7 +60,7 @@ DefaultContentLanguage           = "en"                    # Default language fo
         icon  = "linkedin-in" # icon name without the 'fa-'
         icon_pack = "fab"
     [[params.social]]
-        url = "mailto:nickbarlow@live.com.au"  # For a direct email link, use "mailto:test@example.org".
+        url = "mailto:nick@nbdata.co"  # For a direct email link, use "mailto:test@example.org".
         icon = "paper-plane" # icon name without the 'fa-'
         icon_pack = "fas"
 
