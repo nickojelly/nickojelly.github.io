@@ -1,8 +1,11 @@
 ---
-title: "Photography"
-weight: 1
+title: "Kaggle"
+weight: 2
+resources:
+    - src: kaggle.png
+      params:
+          weight: -100
+project_timeframe: 2020-Present
 ---
 
-## Sometimes I take pictures
-
-This project is about the pictures I take. Sometimes, they are pictures of cats.
+Detail Coming Soon

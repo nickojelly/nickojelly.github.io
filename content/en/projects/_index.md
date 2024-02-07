@@ -1,5 +1,5 @@
 ---
-title: "Projects"
+title: "Experience"
 weight: 10
 ---
 

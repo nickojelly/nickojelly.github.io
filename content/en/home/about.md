@@ -4,9 +4,9 @@ image: "profile2.jpg"
 weight: 8
 ---
 
-This is **Introduction**, a minimalist website theme made for [Hugo](https://gohugo.io).
+Nick is a University of Melbourne trained Data Scientist who has been working in the data indsutry for 4 years since graduating.
 
-### Features
+### Skills
 
 * Expertise in Python, R, and advanced analytics.
 * Developer of predictive machine learning models.
@@ -16,3 +16,4 @@ This is **Introduction**, a minimalist website theme made for [Hugo](https://goh
 * Skilled in GRU neural networks for time series data.
 * Collaborative mentor in data best practices.
 * Passionate about continuous learning and technology application.
+
