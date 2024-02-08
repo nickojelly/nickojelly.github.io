@@ -4,7 +4,7 @@ image: "profile2.jpg"
 weight: 8
 ---
 
-Nick is a University of Melbourne trained Data Scientist who has been working in the data indsutry for 4 years since graduating.
+Nick is a University of Melbourne trained Data Scientist who has been working in the data industry for 4 years since graduating.
 
 ### Skills
 
