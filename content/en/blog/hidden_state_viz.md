@@ -81,9 +81,14 @@ The method used to visualize these hidden states is quite straightforward. We fi
 By looking at these heatmaps, we can gain some insight into how the GRU processes the time-series data. 
 What's particularly interesting is to compare the heatmaps for the two dogs. Even though the GRU is the same, the hidden states it produces can be quite different, depending on the input data. This shows that the GRU is able to adapt its internal representation to the specific characteristics of each dog. For example, if one dog tends to be faster than the other, this might be reflected in the hidden states.
 
-However, it's important to note that these hidden states are only a small component of the early model, and no real information about how these influence the final model predictions can be visualised at this stage. What we are aiming for here is to show how these two different sequences, despite starting at the same initial state, deviated away from each other over time. 
+However, it's important to note that these hidden states are only a small component of the early model, and no real information about how these influence the final model predictions can be visualized at this stage. What we are aiming for here is to show how these two different sequences, despite starting at the same initial state, deviated away from each other over time. 
 
 Let's have a look and see if we can visualize the rate of change of these hidden states as they progress.
 
-
 <iframe src="/hidden_simple_double.html" width="100%" height="600"></iframe>
+
+In the diagram above I've added a simple lineplot that charts the absolute sum of the hidden states and how that progresses over the course of the sequence. As we can see the chart seems to plateau after around 20 steps in the sequence, and then from there it hovers around the same mark. While just looking at the absolute sum is an overly simplistic measure, we can use it as a simple stand in for available information and entropy of the system while looking at how it develops over time. 
+
+Some further points to look to for this would be some comparisons between two classes of cases, one where all the hidden states have been fully "saturated", and the other with none or only some saturation. Comparing between different metrics like loss, accuracy, reproducibility and resilience to data issues. On that last point I assume that when we are in the early stages of a sequences of a dogs races, the model will be relying more heavily on the data at the current time-step and hence will have some issues with resilience when facing data issues.
+
+I'll be looking into these issues and some more in some coming blog posts.
