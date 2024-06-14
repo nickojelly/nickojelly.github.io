@@ -74,7 +74,7 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
         icon_pack = "fas"
 
     [params.intro]
-        background = "images/wavy_grid.jpg"
+        background = "/img/wavy_grid.jpg"
 
 # If you don't want to use the default menu, you can define one by yourself
 # [[menu.main]]
