@@ -117,3 +117,5 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
             description  = "Website Description"   # Max 160 characters show in search results
             # footerText   = ""                      # Text to override default footer text (markdown allowed)
 
+[params]
+    images = ["img/wavy_grid.jpg"]
