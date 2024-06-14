@@ -16,6 +16,7 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
     customCSS                    = ["custom.css"]             # Include custom css files placed under assets/
     # customJS                   = ["foo.js"]              # Include custom JavaScript files placed under assets/
     # plausible                  = true                    # Use Plausible analytics (requires an account at Plausible.io)
+    images = ["/img/wavy_grid.jpg"]
 
     # Configure the home page
     [params.home]
@@ -116,6 +117,3 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
         [languages.en.params]
             description  = "Website Description"   # Max 160 characters show in search results
             # footerText   = ""                      # Text to override default footer text (markdown allowed)
-
-[params]
-    images = ["/img/wavy_grid.jpg"]
