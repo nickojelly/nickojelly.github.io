@@ -118,4 +118,4 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
             # footerText   = ""                      # Text to override default footer text (markdown allowed)
 
 [params]
-    images = ["img/wavy_grid.jpg"]
+    images = ["/img/wavy_grid.jpg"]
