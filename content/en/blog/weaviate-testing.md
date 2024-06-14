@@ -11,4 +11,4 @@ Testing functions for weaviate challenge.
 ## Simple visualization of 3 axis semantic similarity
 
 
-<iframe src="/temp-plot.html" width="100%" height="600"></iframe>
+<iframe src="/temp-plot.html" width="100%" height="1000"></iframe>
