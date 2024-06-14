@@ -6,12 +6,12 @@
 
 {{ with .Resources.ByType "image" }}
 {{ range first 5 (sort . "Params.weight") }}
-<meta property="og:image" content="{{ .Permalink }}"/>
+<meta property="og:image" content="{{ .Site.BaseURL }}img/wavy_grid.jpg">
 {{ end }}
 {{ else }}
 {{ with .Site.GetPage "page" "/home" }}
 {{ range first 5 (.Resources.ByType "image") }}
-<meta property="og:image" content="{{ .Permalink }}"/>
+<meta property="og:image" content="{{ .Site.BaseURL }}img/wavy_grid.jpg">
 {{ end }}
 {{ end }}
 {{ end }}
