@@ -1,6 +1,6 @@
 ---
 title: "Optimizing Targets for Predictive Models"
-date: 2024-06-01T16:04:06-05:00
+date: 2023-06-01T16:04:06-05:00
 tags: ["features", "blog"]
 series: ["quickstart"]
 author: ["Nick Barlow"]
