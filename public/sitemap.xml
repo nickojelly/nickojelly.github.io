@@ -2,10 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.org/categories/</loc>
+    <loc>http://nbdata.co/projects/app_nbdata_co/</loc>
   </url><url>
-    <loc>https://example.org/</loc>
+    <loc>http://nbdata.co/projects/graincorp/</loc>
   </url><url>
-    <loc>https://example.org/tags/</loc>
+    <loc>http://nbdata.co/projects/kaggle/</loc>
+  </url><url>
+    <loc>http://nbdata.co/projects/github/</loc>
+  </url><url>
+    <loc>http://nbdata.co/projects/</loc>
+  </url><url>
+    <loc>http://nbdata.co/blog/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/tags/blog/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/tags/features/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/blog/alternative_targets/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/series/quickstart/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/series/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/tags/</loc>
+    <lastmod>2024-06-01T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/blog/hidden_state_viz/</loc>
+    <lastmod>2024-02-20T16:04:06-05:00</lastmod>
+  </url><url>
+    <loc>http://nbdata.co/blog/multiple_loss_targets/</loc>
+    <lastmod>2024-02-06T16:04:06-05:00</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-700LG6TF98"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-700LG6TF98', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Website Description">
+<title>
+Methods for Visualizing Internal Hidden States in Gated Recurrant Networks - Introduction
+</title>
+
+
+
+        
+        <meta property="og:title" content="Methods for visualizing internal hidden states in Gated Recurrant networks - Introduction" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Website Description"/>
+<meta property="og:url" content="http://nbdata.co/blog/hidden_state_viz/"/>
+<meta property="og:site_name" content="Introduction"/>
+<meta property="og:image" content="http://nbdata.co/img/wavy_grid.jpg">
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/sass/style.sass" integrity="" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="/custom.css" integrity="" crossorigin="anonymous" media="screen">
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">main</a>
+            
+
+            
+            
+
+            
+                
+            
+
+            
+                
+            
+
+            
+            
+            
+            
+            
+            <a class="navbar-item" href="/#about">About</a>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="http://nbdata.co/projects/">
+                  
+                  
+                  Experience
+                  
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="http://nbdata.co/blog/">
+                  
+                  Back to Blog
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+
+            
+            
+            <a class="navbar-item" href="/#contact">Contact</a>
+            
+            
+
+            
+
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="http://nbdata.co/blog/hidden_state_viz/">Methods for visualizing internal hidden states in Gated Recurrant networks</a>
+    </h2>
+    
+    <h4 class="title is-4">
+        
+        By&nbsp;Nick Barlow</h4>
+    
+    <div class="post-data">
+        Feb 20, 2024
+        
+         | 
+        5 minutes read
+        
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button"
+            href="https://twitter.com/intent/tweet?text=Methods%20for%20visualizing%20internal%20hidden%20states%20in%20Gated%20Recurrant%20networks%20http%3a%2f%2fnbdata.co%2fblog%2fhidden_state_viz%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <p>
+        Series:
+        
+        <a href="/series/quickstart">
+            quickstart</a>
+        
+    </p>
+    
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/features">
+            features</a>,
+        
+        <a href="/tags/blog">
+            blog</a>
+        
+    </p>
+    
+    
+    
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>When faced with a predictive problem involving time-series data, recurrent neural networks are a natural choice. For the recent project I have been working on which is predicting greyhound races using previous form data, the switch from a simple classic Feed Forward Neural Network (FFNN) to a Gated Recurrent Network (GRU) has drastically increased the performance achieved by the model. However one of the main drawbacks I&rsquo;ve found is that GRUs are orders of magnitude more complicated, and as such can but harder to diagnose issues and to visualize.</p>
+<p>In this post I&rsquo;m going to go through some various methods I&rsquo;ve used to create visualizations for models using this architecture. Most of the visualizations don&rsquo;t add anything to explainability for model predication, but rather serve as an insight into how these hidden states change over the time series.</p>
+<p>I won&rsquo;t be covering the basics of GRU based networks, but for that there is already a fantastic blog post by Christopher Olah on the various structures of rnn&rsquo;s commonly found <a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/">here</a>. But here is a diagram of the basic structure of a GRU cell, what we will be visualizing is ht.</p>
+<div style="background-color: white;">
+    <img src="/img/LSTM3-var-GRU.png" alt="GRU Structure from colah">
+</div>
+
+<h2 id="simple-visualization-of-two-different-hidden-states-sequences" class="anchor-link"><a href="#simple-visualization-of-two-different-hidden-states-sequences">Simple visualization of two different hidden states sequences</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>fig <span style="color:#719e07">=</span> make_subplots(rows<span style="color:#719e07">=</span><span style="color:#2aa198">2</span>, cols<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Create a heatmap for the first step with constant scale</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">for</span> i, dog_hidden_states <span style="color:#719e07">in</span> <span style="color:#b58900">enumerate</span>(hidden_states):
+</span></span><span style="display:flex;"><span>    heatmap <span style="color:#719e07">=</span> go<span style="color:#719e07">.</span>Heatmap(z<span style="color:#719e07">=</span>dog_hidden_states[<span style="color:#2aa198">0</span>]<span style="color:#719e07">.</span>tolist(), zmin<span style="color:#719e07">=</span>global_min, zmax<span style="color:#719e07">=</span>global_max, colorscale<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;Viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>    fig<span style="color:#719e07">.</span>add_trace(heatmap, row<span style="color:#719e07">=</span>i<span style="color:#719e07">+</span><span style="color:#2aa198">1</span>, col<span style="color:#719e07">=</span><span style="color:#2aa198">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#719e07">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Iterate over dogs and their corresponding hidden states</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">for</span> j <span style="color:#719e07">in</span> <span style="color:#b58900">range</span>(min_len):
+</span></span><span style="display:flex;"><span>    frame_data <span style="color:#719e07">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">for</span> i, dog_hidden_states <span style="color:#719e07">in</span> <span style="color:#b58900">enumerate</span>(hidden_states):
+</span></span><span style="display:flex;"><span>        hidden_state <span style="color:#719e07">=</span> dog_hidden_states[j]
+</span></span><span style="display:flex;"><span>        heatmap <span style="color:#719e07">=</span> go<span style="color:#719e07">.</span>Heatmap(z<span style="color:#719e07">=</span>hidden_state<span style="color:#719e07">.</span>tolist(), zmin<span style="color:#719e07">=</span>global_min, zmax<span style="color:#719e07">=</span>global_max, colorscale<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;Viridis&#39;</span>)
+</span></span><span style="display:flex;"><span>        frame_data<span style="color:#719e07">.</span>append(heatmap)
+</span></span><span style="display:flex;"><span>    frame <span style="color:#719e07">=</span> go<span style="color:#719e07">.</span>Frame(data<span style="color:#719e07">=</span>frame_data, name<span style="color:#719e07">=</span><span style="color:#b58900">str</span>(j))
+</span></span><span style="display:flex;"><span>    frames<span style="color:#719e07">.</span>append(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Define the slider</span>
+</span></span><span style="display:flex;"><span>sliders <span style="color:#719e07">=</span> [<span style="color:#b58900">dict</span>(steps<span style="color:#719e07">=</span>[<span style="color:#b58900">dict</span>(method<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;animate&#39;</span>,
+</span></span><span style="display:flex;"><span>                            args<span style="color:#719e07">=</span>[[f<span style="color:#719e07">.</span>name], {<span style="color:#2aa198">&#34;mode&#34;</span>: <span style="color:#2aa198">&#34;immediate&#34;</span>,
+</span></span><span style="display:flex;"><span>                                             <span style="color:#2aa198">&#34;frame&#34;</span>: {<span style="color:#2aa198">&#34;duration&#34;</span>: <span style="color:#2aa198">30</span>, <span style="color:#2aa198">&#34;redraw&#34;</span>: <span style="color:#cb4b16">True</span>},
+</span></span><span style="display:flex;"><span>                                             <span style="color:#2aa198">&#34;transition&#34;</span>: {<span style="color:#2aa198">&#34;duration&#34;</span>: <span style="color:#2aa198">30</span>}}],
+</span></span><span style="display:flex;"><span>                            label<span style="color:#719e07">=</span>f<span style="color:#719e07">.</span>name) <span style="color:#719e07">for</span> f <span style="color:#719e07">in</span> frames],
+</span></span><span style="display:flex;"><span>                active<span style="color:#719e07">=</span><span style="color:#2aa198">0</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Update layout</span>
+</span></span><span style="display:flex;"><span>fig<span style="color:#719e07">.</span>update_layout(
+</span></span><span style="display:flex;"><span>    updatemenus<span style="color:#719e07">=</span>[<span style="color:#b58900">dict</span>(<span style="color:#b58900">type</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#39;buttons&#39;</span>,
+</span></span><span style="display:flex;"><span>                      showactive<span style="color:#719e07">=</span><span style="color:#cb4b16">False</span>,
+</span></span><span style="display:flex;"><span>                      buttons<span style="color:#719e07">=</span>[<span style="color:#b58900">dict</span>(label<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;Play&#39;</span>,
+</span></span><span style="display:flex;"><span>                                    method<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;animate&#39;</span>,
+</span></span><span style="display:flex;"><span>                                    args<span style="color:#719e07">=</span>[<span style="color:#cb4b16">None</span>, {<span style="color:#2aa198">&#34;frame&#34;</span>: {<span style="color:#2aa198">&#34;duration&#34;</span>: <span style="color:#2aa198">30</span>, <span style="color:#2aa198">&#34;redraw&#34;</span>: <span style="color:#cb4b16">True</span>},
+</span></span><span style="display:flex;"><span>                                                 <span style="color:#2aa198">&#34;fromcurrent&#34;</span>: <span style="color:#cb4b16">True</span>,
+</span></span><span style="display:flex;"><span>                                                 <span style="color:#2aa198">&#34;transition&#34;</span>: {<span style="color:#2aa198">&#34;duration&#34;</span>: <span style="color:#2aa198">30</span>,
+</span></span><span style="display:flex;"><span>                                                                <span style="color:#2aa198">&#34;easing&#34;</span>: <span style="color:#2aa198">&#34;quadratic-in-out&#34;</span>}}]),
+</span></span><span style="display:flex;"><span>                                  <span style="color:#b58900">dict</span>(label<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;Stop&#39;</span>,
+</span></span><span style="display:flex;"><span>                                       method<span style="color:#719e07">=</span><span style="color:#2aa198">&#39;animate&#39;</span>,
+</span></span><span style="display:flex;"><span>                                       args<span style="color:#719e07">=</span>[[<span style="color:#cb4b16">None</span>], {<span style="color:#2aa198">&#34;frame&#34;</span>: {<span style="color:#2aa198">&#34;duration&#34;</span>: <span style="color:#2aa198">0</span>, <span style="color:#2aa198">&#34;redraw&#34;</span>: <span style="color:#cb4b16">False</span>},
+</span></span><span style="display:flex;"><span>                                                      <span style="color:#2aa198">&#34;mode&#34;</span>: <span style="color:#2aa198">&#34;immediate&#34;</span>,
+</span></span><span style="display:flex;"><span>                                                      <span style="color:#2aa198">&#34;transition&#34;</span>: {<span style="color:#2aa198">&#34;duration&#34;</span>: <span style="color:#2aa198">0</span>}}])])],
+</span></span><span style="display:flex;"><span>    sliders<span style="color:#719e07">=</span>sliders
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Update frames</span>
+</span></span><span style="display:flex;"><span>fig<span style="color:#719e07">.</span>frames <span style="color:#719e07">=</span> frames
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Display the figure</span>
+</span></span><span style="display:flex;"><span>fig<span style="color:#719e07">.</span>show()
+</span></span></code></pre></div><iframe src="/2_hidden_simple.html" width="100%" height="600"></iframe>
+<p>The visualizations you see above are heatmaps of the hidden states of a Gated Recurrent Unit (GRU) over time. Each subplot corresponds to a different dog, and the color of each cell in the heatmap represents the value of a hidden state at a particular time step. The darker the color, the higher the value of the hidden state.</p>
+<p>The method used to visualize these hidden states is quite straightforward. We first run the GRU on the time-series data for each dog. At each time step, the GRU produces a hidden state, which is a vector of numbers. We collect these hidden states and arrange them in a 2D array, where each row corresponds to a time step and each column corresponds to a component of the hidden state. We then use this 2D array to create a heatmap, where each cell&rsquo;s color is determined by the corresponding value in the array.</p>
+<p>By looking at these heatmaps, we can gain some insight into how the GRU processes the time-series data.
+What&rsquo;s particularly interesting is to compare the heatmaps for the two dogs. Even though the GRU is the same, the hidden states it produces can be quite different, depending on the input data. This shows that the GRU is able to adapt its internal representation to the specific characteristics of each dog. For example, if one dog tends to be faster than the other, this might be reflected in the hidden states.</p>
+<p>However, it&rsquo;s important to note that these hidden states are only a small component of the early model, and no real information about how these influence the final model predictions can be visualized at this stage. What we are aiming for here is to show how these two different sequences, despite starting at the same initial state, deviated away from each other over time.</p>
+<p>Let&rsquo;s have a look and see if we can visualize the rate of change of these hidden states as they progress.</p>
+<iframe src="/hidden_simple_double.html" width="100%" height="600"></iframe>
+<p>In the diagram above I&rsquo;ve added a simple lineplot that charts the absolute sum of the hidden states and how that progresses over the course of the sequence. As we can see the chart seems to plateau after around 20 steps in the sequence, and then from there it hovers around the same mark. While just looking at the absolute sum is an overly simplistic measure, we can use it as a simple stand in for available information and entropy of the system while looking at how it develops over time.</p>
+<p>Some further points to look to for this would be some comparisons between two classes of cases, one where all the hidden states have been fully &ldquo;saturated&rdquo;, and the other with none or only some saturation. Comparing between different metrics like loss, accuracy, reproducibility and resilience to data issues. On that last point I assume that when we are in the early stages of a sequences of a dogs races, the model will be relying more heavily on the data at the current time-step and hence will have some issues with resilience when facing data issues.</p>
+<p>I&rsquo;ll be looking into these issues and some more in some coming blog posts.</p>
+
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="http://nbdata.co/js/bundle.a930c39d78409614838fcdf3d9c43a226556708d8667f1ca78e2188d438c9922.js" integrity="sha256-qTDDnXhAlhSDj83z2cQ6ImVWcI2GZ/HKeOIYjUOMmSI="></script>
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

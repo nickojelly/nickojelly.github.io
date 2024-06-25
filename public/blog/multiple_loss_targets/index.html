@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-700LG6TF98"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-700LG6TF98', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Website Description">
+<title>
+Enhancing Model Performance and Stability With Multiple Loss Functions - Introduction
+</title>
+
+
+
+        
+        <meta property="og:title" content="Enhancing Model Performance and Stability with Multiple Loss Functions - Introduction" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Website Description"/>
+<meta property="og:url" content="http://nbdata.co/blog/multiple_loss_targets/"/>
+<meta property="og:site_name" content="Introduction"/>
+<meta property="og:image" content="http://nbdata.co/img/wavy_grid.jpg">
+
+        
+<link rel="shortcut icon" href="/img/fav.ico">
+
+
+        
+
+
+
+
+
+<link rel="stylesheet" href="/sass/style.sass" integrity="" crossorigin="anonymous" media="screen">
+
+
+
+
+    <link rel="stylesheet" href="/custom.css" integrity="" crossorigin="anonymous" media="screen">
+
+        
+        
+        
+        
+    </head>
+    <body>
+        <section id="top" class="section">
+            
+            <div class="container hero  fade-in one ">
+                
+
+<h1 class="bold-title is-1">Blog</h1>
+
+
+            </div>
+            
+            <div class="section  fade-in two ">
+                
+
+<div class="container">
+    <hr>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <div class="navbar-menu " id="navMenu">
+            
+            
+            
+            
+            <a class="navbar-item" href="/">main</a>
+            
+
+            
+            
+
+            
+                
+            
+
+            
+                
+            
+
+            
+            
+            
+            
+            
+            <a class="navbar-item" href="/#about">About</a>
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="http://nbdata.co/projects/">
+                  
+                  
+                  Experience
+                  
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+            
+                
+                
+                
+                
+                  <a class="navbar-item" href="http://nbdata.co/blog/">
+                  
+                  Back to Blog
+                  
+                  </a>
+                
+                
+            
+            
+            
+            
+
+            
+            
+            <a class="navbar-item" href="/#contact">Contact</a>
+            
+            
+
+            
+
+            
+            
+        </div>
+    </nav>
+    <hr>
+</div>
+
+
+
+
+                
+<div class="container">
+    <h2 class="title is-1 top-pad strong-post-title">
+        <a href="http://nbdata.co/blog/multiple_loss_targets/">Enhancing Model Performance and Stability with Multiple Loss Functions</a>
+    </h2>
+    
+    <h4 class="title is-4">
+        
+        By&nbsp;Nick Barlow</h4>
+    
+    <div class="post-data">
+        Feb 6, 2024
+        
+         | 
+        3 minutes read
+        
+    </div>
+    
+    <div class="blog-share">
+        Share this:
+        
+        <a class="twitter-share-button"
+            href="https://twitter.com/intent/tweet?text=Enhancing%20Model%20Performance%20and%20Stability%20with%20Multiple%20Loss%20Functions%20http%3a%2f%2fnbdata.co%2fblog%2fmultiple_loss_targets%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fab fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+        
+        
+        
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <p>
+        Series:
+        
+        <a href="/series/quickstart">
+            quickstart</a>
+        
+    </p>
+    
+    
+    
+    
+    <p>
+        Tags:
+        
+        <a href="/tags/features">
+            features</a>,
+        
+        <a href="/tags/blog">
+            blog</a>
+        
+    </p>
+    
+    
+    
+    
+</div>
+
+<div class="container markdown top-pad">
+    <p>In my recent work on a greyhound racing prediction model, I&rsquo;ve discovered an effective technique to not only increase the model&rsquo;s performance but also stabilize it and reduce overfitting. This technique involves the use of multiple loss functions.</p>
+<p>Traditionally, a single loss function is used to train a model. The model&rsquo;s parameters are adjusted to minimize this loss, which is a measure of the difference between the model&rsquo;s predictions and the actual data. However, in complex tasks like greyhound racing prediction, a single loss function may not capture all the nuances of the problem.</p>
+<p>In my model, I used three different targets for the loss function, each focusing on a different aspect of the data:</p>
+<ol>
+<li>
+<p>Margin as a softmin tensor: The margin of victory in a race is a direct measure of how well each dog performed. By converting this margin to a softmin tensor, we transform the margins into a set of probabilities that sum to 1. The dog with the smallest margin (i.e., the winner) will have the highest probability. This target tensor directly relates to the outcome of the race and is crucial for the model to learn the relationship between the input features and the race outcome.</p>
+</li>
+<li>
+<p>One-hot encoded win: This tensor represents the actual winner of the race. Each dog is represented by a binary value in the tensor, with the winner having a value of 1 and all others having a value of 0. This target tensor is essential for the model to learn to predict the categorical outcome of the race, i.e., which dog will win. It provides a clear and unambiguous target for the model to aim for.</p>
+</li>
+<li>
+<p>Starting prices as probabilities: The starting prices in a race can be seen as the inverse of the market&rsquo;s perceived probability of each dog winning. By converting these prices to probabilities, we create a target tensor that represents the collective opinion of the betting market. This tensor is important for the model to learn to take into account the same factors that bettors consider when placing their bets. It provides a different perspective on the race outcome, complementing the other two target tensors.</p>
+</li>
+</ol>
+<p>By training the model to predict all three target tensors, we enable it to learn different aspects of the problem and make more accurate and nuanced predictions. Each tensor contains unique information about the race outcome, and by combining them, we can create a model that is more robust and capable of generating more accurate probabilities.</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#586e75">#Single Target Loss</span>
+</span></span><span style="display:flex;"><span>epoch_loss <span style="color:#719e07">=</span> criterion(output, y)
+</span></span><span style="display:flex;"><span>optimizer<span style="color:#719e07">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>epoch_loss<span style="color:#719e07">.</span>mean()<span style="color:#719e07">.</span>backward()
+</span></span><span style="display:flex;"><span>optimizer<span style="color:#719e07">.</span>step()
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#586e75">#Multiple Target Loss</span>
+</span></span><span style="display:flex;"><span>epoch_loss <span style="color:#719e07">=</span> criterion(output, y)
+</span></span><span style="display:flex;"><span>epoch_loss_ohe <span style="color:#719e07">=</span> criterion(output, y_ohe)
+</span></span><span style="display:flex;"><span>epoch_loss_p <span style="color:#719e07">=</span> criterion(output_p, y_p)
+</span></span><span style="display:flex;"><span>optimizer<span style="color:#719e07">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>(epoch_loss_p<span style="color:#719e07">+</span>epoch_loss_ohe<span style="color:#719e07">+</span>epoch_loss)<span style="color:#719e07">.</span>mean()<span style="color:#719e07">.</span>backward()
+</span></span><span style="display:flex;"><span>optimizer<span style="color:#719e07">.</span>step()
+</span></span></code></pre></div><p>By training the model to minimize all three loss functions simultaneously, it learns to make predictions that are accurate in multiple respects. This not only improved the model&rsquo;s performance on the main metric (loss to margin) but also made the model more stable and less prone to overfitting.</p>
+<p><img src="/img/Loss_double.png" alt="My Image"></p>
+<p>This also translates directly to an increase in validation accuracy on the prediction outcomes:</p>
+<p><img src="/img/accuracy_double.png" alt="My Image"></p>
+<p>This approach of using multiple loss functions can be applied to other complex prediction tasks as well. It&rsquo;s a powerful way to make your model learn from different perspectives and thus make more accurate and robust predictions.</p>
+
+</div>
+
+
+
+
+
+                
+                <div class="container">
+    <hr>
+</div>
+<div class="container has-text-centered top-pad">
+    <a href="#top">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+                <div class="section" id="footer">
+    <div class="container has-text-centered">
+    
+        <span class="footer-text">
+            <a href="https://github.com/victoriadrake/hugo-theme-introduction/"><strong>Introduction</strong></a> theme for <a href="http://gohugo.io/">Hugo</a>. Made with <a href="https://victoria.dev"><i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i></a> by open source contributors.
+        </span>
+    
+    </div>
+</div>
+
+                
+            </div>
+        </section>
+        
+        
+
+
+<script src="http://nbdata.co/js/bundle.a930c39d78409614838fcdf3d9c43a226556708d8667f1ca78e2188d438c9922.js" integrity="sha256-qTDDnXhAlhSDj83z2cQ6ImVWcI2GZ/HKeOIYjUOMmSI="></script>
+
+
+
+
+        
+        
+        
+        
+    </body>
+</html>

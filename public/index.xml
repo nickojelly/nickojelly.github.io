@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
-    <link>https://example.org/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <title>Introduction</title>
+    <link>http://nbdata.co/</link>
+    <description>Recent content on Introduction</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jun 2024 16:04:06 -0500</lastBuildDate>
+    <atom:link href="http://nbdata.co/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>App NBData</title>
+      <link>http://nbdata.co/projects/app_nbdata_co/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://nbdata.co/projects/app_nbdata_co/</guid>
+      <description>This project showcases the application hosted at app.nbdata.co. It includes features such as&amp;hellip;&#xA;[Add more details about your project here]</description>
+    </item>
+    <item>
+      <title>GrainCorp</title>
+      <link>http://nbdata.co/projects/graincorp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://nbdata.co/projects/graincorp/</guid>
+      <description>Graincorp is a leading agribusiness, specializing in grain and edible oil storage and handling. During tenure, innovative data solutions for various operational challenges were introduced. Key initiatives included automating data processes to enhance the seasonal hiring workflow and developing real-time dashboards for harvest management, thereby driving significant efficiency and decision-making improvements within the company.&#xA;Pioneered automation of manual reporting, reducing team workload. Designed and implemented live dashboards for management metrics. Formulated new KPIs, improving task completion rates significantly.</description>
+    </item>
+    <item>
+      <title>Kaggle</title>
+      <link>http://nbdata.co/projects/kaggle/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://nbdata.co/projects/kaggle/</guid>
+      <description>The Kaggle LuxAI Challenge offered a platform to harness AI for strategizing in an adversarial gaming setting, promoting innovative thinking and sharp data science skills. The challenge demanded quick iteration and clever algorithm application to create effective game strategies and provided a collaborative environment to compete with global participants, enriching strategic problem-solving abilities.&#xA;Tackled complex strategic AI applications within a competitive setting. Innovatively applied AI algorithms to game scenarios through the LuxAI Challenge.</description>
+    </item>
+    <item>
+      <title>Race Modelling</title>
+      <link>http://nbdata.co/projects/github/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://nbdata.co/projects/github/</guid>
+      <description>The GRV Greyhound Racing Model represents a personal project in deep machine learning, aimed at predicting the outcomes of races across Australia and New Zealand. Tailoring a custom Gated Recurrent Unit model to navigate the complexities of non-uniform time series data in greyhound racing, the project serves as a prime example of innovative problem-solving and application of advanced machine learning techniques.&#xA;Developed a deep learning model for predicting race outcomes. Automated real-time data updates via integrated API feeds.</description>
+    </item>
+    <item>
+      <title>Optimizing Targets for Predictive Models</title>
+      <link>http://nbdata.co/blog/alternative_targets/</link>
+      <pubDate>Sat, 01 Jun 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/blog/alternative_targets/</guid>
+      <description>I was recently awarded a prize in a Datathon hosted by Betfair based around predicting the outcome of greyhound races using Machine Learning. I learnt a great deal over this experience and one piece of this was around optimizing the target&amp;rsquo;s used in training a ML model. The goal of the competition was simple, to have the lowest log loss between your predictions and the outcome of the races, a standard classification task.</description>
+    </item>
+    <item>
+      <title>Methods for visualizing internal hidden states in Gated Recurrant networks</title>
+      <link>http://nbdata.co/blog/hidden_state_viz/</link>
+      <pubDate>Tue, 20 Feb 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/blog/hidden_state_viz/</guid>
+      <description>When faced with a predictive problem involving time-series data, recurrent neural networks are a natural choice. For the recent project I have been working on which is predicting greyhound races using previous form data, the switch from a simple classic Feed Forward Neural Network (FFNN) to a Gated Recurrent Network (GRU) has drastically increased the performance achieved by the model. However one of the main drawbacks I&amp;rsquo;ve found is that GRUs are orders of magnitude more complicated, and as such can but harder to diagnose issues and to visualize.</description>
+    </item>
+    <item>
+      <title>Enhancing Model Performance and Stability with Multiple Loss Functions</title>
+      <link>http://nbdata.co/blog/multiple_loss_targets/</link>
+      <pubDate>Tue, 06 Feb 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/blog/multiple_loss_targets/</guid>
+      <description>In my recent work on a greyhound racing prediction model, I&amp;rsquo;ve discovered an effective technique to not only increase the model&amp;rsquo;s performance but also stabilize it and reduce overfitting. This technique involves the use of multiple loss functions.&#xA;Traditionally, a single loss function is used to train a model. The model&amp;rsquo;s parameters are adjusted to minimize this loss, which is a measure of the difference between the model&amp;rsquo;s predictions and the actual data.</description>
+    </item>
   </channel>
 </rss>

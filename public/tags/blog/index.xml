@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog on Introduction</title>
+    <link>http://nbdata.co/tags/blog/</link>
+    <description>Recent content in blog on Introduction</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jun 2024 16:04:06 -0500</lastBuildDate>
+    <atom:link href="http://nbdata.co/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizing Targets for Predictive Models</title>
+      <link>http://nbdata.co/blog/alternative_targets/</link>
+      <pubDate>Sat, 01 Jun 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/blog/alternative_targets/</guid>
+      <description>I was recently awarded a prize in a Datathon hosted by Betfair based around predicting the outcome of greyhound races using Machine Learning. I learnt a great deal over this experience and one piece of this was around optimizing the target&amp;rsquo;s used in training a ML model. The goal of the competition was simple, to have the lowest log loss between your predictions and the outcome of the races, a standard classification task.</description>
+    </item>
+    <item>
+      <title>Methods for visualizing internal hidden states in Gated Recurrant networks</title>
+      <link>http://nbdata.co/blog/hidden_state_viz/</link>
+      <pubDate>Tue, 20 Feb 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/blog/hidden_state_viz/</guid>
+      <description>When faced with a predictive problem involving time-series data, recurrent neural networks are a natural choice. For the recent project I have been working on which is predicting greyhound races using previous form data, the switch from a simple classic Feed Forward Neural Network (FFNN) to a Gated Recurrent Network (GRU) has drastically increased the performance achieved by the model. However one of the main drawbacks I&amp;rsquo;ve found is that GRUs are orders of magnitude more complicated, and as such can but harder to diagnose issues and to visualize.</description>
+    </item>
+    <item>
+      <title>Enhancing Model Performance and Stability with Multiple Loss Functions</title>
+      <link>http://nbdata.co/blog/multiple_loss_targets/</link>
+      <pubDate>Tue, 06 Feb 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/blog/multiple_loss_targets/</guid>
+      <description>In my recent work on a greyhound racing prediction model, I&amp;rsquo;ve discovered an effective technique to not only increase the model&amp;rsquo;s performance but also stabilize it and reduce overfitting. This technique involves the use of multiple loss functions.&#xA;Traditionally, a single loss function is used to train a model. The model&amp;rsquo;s parameters are adjusted to minimize this loss, which is a measure of the difference between the model&amp;rsquo;s predictions and the actual data.</description>
+    </item>
+  </channel>
+</rss>

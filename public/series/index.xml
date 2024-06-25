@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Series on Introduction</title>
+    <link>http://nbdata.co/series/</link>
+    <description>Recent content in Series on Introduction</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jun 2024 16:04:06 -0500</lastBuildDate>
+    <atom:link href="http://nbdata.co/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>quickstart</title>
+      <link>http://nbdata.co/series/quickstart/</link>
+      <pubDate>Sat, 01 Jun 2024 16:04:06 -0500</pubDate>
+      <guid>http://nbdata.co/series/quickstart/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

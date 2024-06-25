@@ -1,0 +1,11 @@
+/* This is the default font size for larger screens */
+.strong-post-title {
+    font-size: 2em;
+}
+
+/* This will apply only to screens smaller than 600px wide */
+@media screen and (max-width: 600px) {
+    .strong-post-title {
+        font-size: 1.5em !important;
+    }
+}
