@@ -5,8 +5,6 @@ tags: ["projects", "machine learning", "data visualization"]
 author: ["Nick Barlow"]
 ---
 
-In today's rapidly evolving job market, especially in fields like AI and Machine Learning, understanding trends and opportunities can be challenging. That's why I'm excited to introduce VectoredIn, a project I recently developed as part of the Weaviate Machine Learning Engineer challenge.
-
 ## What is VectoredIn?
 
 VectoredIn is a web application that brings a new perspective to job market analysis. By leveraging advanced natural language processing and machine learning techniques, it allows users to visualize and explore job listings in a unique, three-dimensional space.
