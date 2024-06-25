@@ -76,6 +76,8 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
     [params.intro]
         background = "/img/wavy_grid.jpg"
 
+    
+
 # If you don't want to use the default menu, you can define one by yourself
 # [[menu.main]]
 #     name    = "Home"
@@ -122,3 +124,12 @@ googleAnalytics                 = "G-700LG6TF98"                     # https://g
         [languages.en.params]
             description  = "Website Description"   # Max 160 characters show in search results
             # footerText   = ""                      # Text to override default footer text (markdown allowed)
+
+[imaging]
+    resampleFilter = "CatmullRom"
+    quality = 100
+    anchor = "smart"
+
+[imaging.exif]
+  disableDate = true
+  disableLatLong = true

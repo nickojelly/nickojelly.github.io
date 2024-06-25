@@ -1,17 +1,13 @@
 {{ define "main" }}
-    <div class="container markdown top-pad">
-        {{ .Content }}
-    </div>
+    <!-- ... (previous code remains unchanged) ... -->
     <div class="container">
         <div class="section">
             <div class="columns is-multiline">
                 {{ $numberOfPages := len .Pages}}
                 {{ range .Pages.ByWeight }}
-                {{ $width := "302x" }}
                 {{ $columWidth := "is-one-third" }}
                 {{ if .Site.Params.projects.useTwoColumns }}
                   {{ $columWidth = "is-half" }}
-                  {{ $width = "490x" }}
                 {{ end}}
                 <div class="column {{ $columWidth }}">
                     <div class="card">
@@ -21,8 +17,7 @@
                                 <a href="{{ if .Params.external_link }}{{ .Params.external_link }}{{ else }}{{ .Permalink }}{{ end }}">
                                     {{ with .Resources.ByType "image" }}
                                     {{ range first 1 (sort . "Params.weight") }}
-                                    {{ $image := .Resize $width }}
-                                    <img src="{{ $image.Permalink }}" alt ="{{ $image.Name }}">
+                                    <img src="{{ .RelPermalink }}" alt="{{ .Name }}" style="object-fit: cover; width: 100%; height: 100%;">
                                     {{ end }}
                                     {{ end }}
                                 </a>

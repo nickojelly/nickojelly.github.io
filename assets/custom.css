@@ -9,3 +9,11 @@
         font-size: 1.5em !important;
     }
 }
+
+.project-thumbnail img {
+    width: 100%;
+    height: auto;
+    max-width: 1558px;
+    max-height: 755px;
+    object-fit: cover;
+  }
