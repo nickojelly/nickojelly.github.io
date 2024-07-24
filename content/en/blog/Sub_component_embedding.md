@@ -41,25 +41,29 @@ The diagram here show's roughly what we would expect to see when we are looking 
 There are several techniques that can be used to extract the key information from a body of text, the most popular being the Named Entity Recognition (NER). NER involves training a model, (LLM or in this case a statistical model) to identify and classify named entities in a text. The NER model we have used and finetuned is from the [spaCy](https://spacy.io/api/entityrecognizer) library, which is a popular NLP library.
 #### NER
 
+
 We defined a set of custom classes for this NER to encompass the relevant information we talked about above, so building on our diagram from above, this is a representation of what we are doing with this model.
+
 
 <img src="/img/job_ner3.png" alt="3d Plot" width="900">
 
 The benefits of this are twofold:
-1. Reducing the amount of data. The amount of data we extracted amounts to a little over 25% of the original data, on average over the 1 Million job postings we have.
+1. Reducing the amount of data. The amount of data we extracted amounts to a little over 25% of the original data, on average over the 1 million job postings we have.
 2. Removed unrelated information. We have removed a fair amount of the text that is not pertinent to the underlying role, which should increase the quality of the embeddings.
 
 #### Sub Component Embedding
 
-Sub Component Embedding builds on our NER technique above, and involves taking the output of the NER model and using it to create a new embedding for each sub component. All of these individual embeddings can then be used to create a Composite Embedding Vector (CEV) for the entire job posting. This presenst us with three major benefits:
+Sub Component Embedding (SCE) builds on our NER technique above, and involves taking the output of the NER model and using it to create a new embedding for each sub component. All these individual embeddings can then be used to create a Composite Embedding Vector (CEV) for the entire job posting. This presents us with three major benefits:
 
-1. Reducing in data, again. As we now only have to create embeddings for each unique sub component, we can greatly reduce the amount of data we have to send through a large language model. Even further than this, we have also changed the way this scales with amount of data, scalling logarithmically.
-2. Flexibility. Having the ability to recompile an embedding from a range of subcomponents means that we have in the way we combine the subcomponents, whether they are all weighted equally, or a weighted relative to their classification etc.
+1. Reducing in data, again. As we now only have to create embeddings for each unique sub component, we can greatly reduce the amount of data we have to send through a large language model. Even further than this, we have also changed the way this scales with amount of data, scaling logarithmically.
+2. Flexibility. Having the ability to recompile an embedding from a range of subcomponents means that we have in the way we combine the subcomponents, whether they are all weighted equally, or a weighted relative to their classification.
 3. Visualisation. Having the ability to visualise the semantic distance between each subcomponent, and the overall job posting, we can see how each of the subcomponents relate to the job posting, and the axis we are visualising them on.
 
 <img src="/img/sub_component3.png" alt="3d Plot" width="900">
 
-Looking at how the amount of token's needed to embed for each of these method, we can see the impact of our techniques, and how the sub component embedding method is the most efficient. At 1 Million Job postings, embedding the full NER of the job posting uses 30% of the tokens that embedding the full description needs. Futher, the sub component embedding method uses only 6% of the tokens.
+
+Looking at how the amount of token's needed to embed for each of these methods, we can see the impact of our techniques, and how the sub component embedding method is the most efficient. At 1 million Job postings, embedding the full NER of the job posting uses 30% of the tokens that embedding the full description needs. Further, the sub component embedding method uses only 6% of the tokens.
+
 
 <div style="max-width: 800px; margin: 0 auto;">
     <iframe src="/embedding_methods.html" width="900" height="600" style="display: block; margin: 0 auto;"></iframe>
@@ -68,7 +72,8 @@ Looking at how the amount of token's needed to embed for each of these method, w
 
 ### Visualisation
 
-One of the main benefits of utalising sub component embedding is that when we are visualising the semantic distance between each of the subcomponents, we can see how they relate to the overall job posting. This is shown in the diagram below, where we can see that the subcomponents are all related to the job posting, and that the subcomponents are related to each other.
+
+One of the main benefits of utilising sub component embedding is that when we are visualising the semantic distance between each of the subcomponents, we can see how they relate to the overall job posting. This is shown in the diagram below, where we can see that the subcomponents are all related to the job posting, and that the subcomponents are related to each other.
 
 
 <div style="max-width: 900px; margin: 0 auto;">
@@ -78,17 +83,19 @@ One of the main benefits of utalising sub component embedding is that when we ar
 
 The first plot here is the main plot of job postings, and their relative relations to the 3 user defined axis. The point highlighted in red is the job posting we are looking at, and in the second plot we can see the subcomponents of the job posting, and their relative relations to the 3 user defined axis, along with the composite embedding vector of the job posting.
 
-For example we can see that one of the subcomponents **Expeirence in data managment and automation** is more related to the **Data Science** and **Machine Learning Engineer** than the **Accountant** axis, despite this being a job posting very related to a **Accountant** role. But the composite embedding takes into account all the subcompoents, including some very related to the **Accountant** role, such as **Bachelors Degree in Accounting or Business related field**. 
+For example we can see that one of the subcomponents **Experience in data management and automation** is more related to the **Data Science** and **Machine Learning Engineer** than the **Accountant** axis, despite this being a job posting very related to a **Accountant** role. But the composite embedding takes into account all the sub components, including some very related to the **Accountant** role, such as **Bachelors Degree in Accounting or Business related field**. 
 
 An important point to note here, is that while we talk about the Composite Embedding Vector (CEV) as an average of the Sub Component Embeddings (SCE), we do not expect the cosine distance of the CEV to be the average of the cosine distance of the SCE's. This is because the CEV represents a new point in the high-dimensional embedding space that captures the aggregate semantic meaning of all sub-components. All the vectors here are represented in a vector space of 1536 dimensions, from the new OpenAI `'text-embedding-3-small'` model.
 
 
+
 ### Compositing Embedding Vectors
 
-As mentioned above, when we are compositing a new vector from SCE's, there are many different methods we can use. The simplest of which would be to take the average of all the SCE's as they are, and treat them all equally. 
 
+As mentioned above, when we are compositing a new vector from SCE's, there are many different methods we can use. The simplest of which would be to take the average of all the SCE's as they are and treat them all equally. 
 
 Here's an example of the SCE's for the job posting we visualised above.
+
 ```python
 {    
     'embeddings': {
@@ -146,7 +153,7 @@ stacked_arrays = np.stack(all_arrays)
 composite_embedding_vector = np.mean(stacked_arrays, axis=0)
 ```
 
-This approach does work and provide reasonable results for examples like this, but what we gain in simplicity here, we lose in peformance. While not the case in this example, there's are many job listings were the balance between the categories is very heavily skewed in one direction. For example a job posting for a **Full Stack Developer** may only list 3 responsibilities, while listing over 20 tools and frameworks. A simple fix for this is to take the average of the SCE's for each category, and then take the average of the resulting vectors to create our CEV.
+This approach does work and provide reasonable results for examples like this, but what we gain in simplicity here, we lose in performance. While not the case in this example, there is are many job listings where the balance between the categories is very heavily skewed in one direction. For example, a job posting for a **Full Stack Developer** may only list 3 responsibilities, while listing over 20 tools and frameworks. A simple fix for this is to take the average of the SCEs for each category, and then take the average of the resulting vectors to create our CEV.
 
 ```python
 import numpy as np
@@ -168,8 +175,7 @@ stacked_arrays = np.stack(all_cat_means)
 # Calculate the mean
 composite_embedding_vector = np.mean(stacked_arrays, axis=0)
 ```
-
-The third approach is we can build on our second approach here and add in some manual weight's to each of the categories. This is a bit more complex, but can be a good way to get a good balance between the categories. The only important thing to note here is that all the weights here need to add up to 1, and not every category is required to be present in every listing.
+The third approach is we can build on our second approach here and add in manual weights (or optimized weights) to each of the categories. This is a bit more complex but can be an effective way to get a good balance between the categories. The only important thing to note here is that all the weights here need to add up to 1, and not every category is required to be present in every listing.
 
 ```python
 import numpy as np
