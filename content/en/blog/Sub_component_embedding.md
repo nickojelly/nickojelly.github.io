@@ -1,6 +1,6 @@
 ---
 title: "Sub Component Embedding: Reducing Dimensionality and Improving Flexibility"
-date: 2024-06-20T16:04:06-05:00
+date: 2024-07-20T16:04:06-05:00
 tags: ["projects", "machine learning", "data visualization"]
 author: ["Nick Barlow"]
 ---
@@ -12,20 +12,22 @@ VectoredIn in a tool I developed to visualize the job market and job postings fr
 
 For this project, I built upon the data from this Kaggle dataset  [here](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings), which originally contained over 100,000 job postings, and I bought this up to just over 1 Million individual job postings.
 
-Now, with each job posting having an average of 500 words (600 Tokens) for the description alone, alongside some additional metadata, this is a reasonbly large dataset.
+Now, with each job posting having an average of 500 words (600 Tokens) for the description alone, alongside some additional metadata, this is a reasonably large dataset.
 
-The main goal of this project was to use LLM's to create a vector representation of each individual job posting, and store these in a open-source vector database from Weaviate. The way a classical embedding process works is you feed in a set of text (Document, Article, Paper) and you get out a vector representation of the text. This vector repreresents the semantic meaning behind the text, with similar articles of text being closer to each other in the vector space.
+The main goal of this project was to use LLM's to create a vector representation of each individual job posting, and store these in a open-source vector database from Weaviate. The way a classical embedding process works is you feed in a set of text (Document, Article, Paper) and you get out a vector representation of the text. This vector represents the semantic meaning behind the text, with similar articles of text being closer to each other in the vector space.
 
-This is all well and good, but having to embed over 600 Millions tokens (if we were simply to feed in each full job posting to the model) is pretty inefficient and costly. So let's have a look at some of the techniques that can be used to reduce the dimensionality of the data.
+Having to embed over 600 Million tokens (if we were simply to feed in each full job posting to the model) is pretty inefficient and costly. So, let's have a look at some of the techniques that can be used to reduce the dimensionality of the data.
+
 
 #### Anatomy of a Job Posting
 
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-Job posting's as a dataset fall into the semi-structured format of data. They are all quite different from each other, but if we zoom out they all seem to be made up of the same sub components. We can expect a job posting to have a title, responsibility, skills, qualifications, tools, all in varying amount. This is alongside some additional text, that is not really relevant to the actual role, but more contextual to the company and the hiring process. 
+Job postings as a dataset fall into the semi-structured format of data. They are all quite different from each other, but if we zoom out, they all are made up of the same subcomponents. We can expect a job posting to have a title, responsibility, skills, qualifications, tools, all in varying amount. This is alongside some additional text, which is not relevant to the actual role, but more contextual to the company and the hiring process. 
 
-The diagram here show's roughly what we would expect to see when we are looking at a job posting, and looking though the lense of trying to reduce the amount of data, we can see a fair bit of text that can be removed, such an general information about the company, the hiring process, and fair employment compliance information. While this information may be relevant when applying for a job, it is not really relevant to the role itself. So let's look at some techniques we can use to extract the key information we need.
+The diagram here show's roughly what we would expect to see when we are looking at a job posting, and looking through the lens of trying to reduce the amount of data, we can see a fair bit of text that can be removed, such an general information about the company, the hiring process, and fair employment compliance information. While this information may be relevant when applying for a job, it is not relevant to the role itself. So, let's look at some techniques we can use to extract the key information we need.
+
 
   </div>
   <div style="flex: 1;">
@@ -37,7 +39,6 @@ The diagram here show's roughly what we would expect to see when we are looking 
 ### Techniques
 
 There are several techniques that can be used to extract the key information from a body of text, the most popular being the Named Entity Recognition (NER). NER involves training a model, (LLM or in this case a statistical model) to identify and classify named entities in a text. The NER model we have used and finetuned is from the [spaCy](https://spacy.io/api/entityrecognizer) library, which is a popular NLP library.
-
 #### NER
 
 We defined a set of custom classes for this NER to encompass the relevant information we talked about above, so building on our diagram from above, this is a representation of what we are doing with this model.
