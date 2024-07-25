@@ -54,7 +54,9 @@ In this diagram we have created ~300 embedding vectors for a sample of jobs, and
 
 Here's we can see the 3 red line's between the **distance** between the queries and the highlighted job posting, and this is what will make the basis of comparison's moving forward. To be more accurate, what is actually represented by the red line is the **Euclidean Distance** between the two points, but in this project we are using the **Cosine Distance** between the two vectors, but for explanation purposes they represent the same thing. 
 
-While this visualization of embeddings in 3 dimensions is useful for this explanation of distance , its not an accurate representation of the actual embeddings and won't provide much insight into the complexity of the data
+While this visualization of embeddings in 3 dimensions is useful for this simple explanation of distance and embeddings, its does not provide much more than that. All further visualizations will be based on the 3 distances between the job postings and the query, calculated using the Cosine Distance over 1563 dimensional embedding vectors.
+
+
 ### Techniques
 
 There are several techniques that can be used to extract the key information from a body of text, the most popular being the Named Entity Recognition (NER). NER involves training a model, (LLM or in this case a statistical model) to identify and classify named entities in a text. The NER model we have used and finetuned is from the [spaCy](https://spacy.io/api/entityrecognizer) library, which is a popular NLP library.
