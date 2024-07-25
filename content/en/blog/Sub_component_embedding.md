@@ -3,6 +3,7 @@ title: "Sub Component Embedding: Reducing Dimensionality and Improving Flexibili
 date: 2024-07-20T16:04:06-05:00
 tags: ["projects", "machine learning", "data visualization"]
 author: ["Nick Barlow"]
+math: true
 ---
 
 VectoredIn is a tool I developed to visualize the job market and job postings from LinkedIn utilising various different tool and techniques from the NLP and LLM space. To read more about the project, look [here]({{< ref "vectoredIn.md" >}}).
@@ -36,6 +37,24 @@ The diagram here shows roughly what we would expect to see when we are looking a
 </div>
 
 
+### Vector Embedding and Cosine Distance
+
+Let's go over a quick explainer about the process of creating a vector embedding and how we can use it to compare the similarity between two body's of text. When we create an embedding of a body of text, we are creating a vector (array of numbers) that represents the semantic meaning behind the text. These vectors don't contain any meaning by themselves, but they give us the ability to compare the similarity between two bodies of text, by comparing their respective embedding vectors.
+
+<img src="/img/embedding_explainer.png" alt=" Embedding Process" width="900">
+
+In this example we've created embeddings with dimensionality of 3, just to provide us with an easy visual representation. In reality, the embedding will be much larger, the actual dimensionality of the embedding we use is 1563, which is a little harder to visualize than 3 dimensions. 
+
+In this diagram we have created ~300 embedding vectors for a sample of jobs, and added in 3 embedding of query's (the job's we are looking for). The query embeddings are the green diamonds, and the specific job posting we are looking at is highlighted in red. 
+
+
+<div style="max-width: 900px; margin: 0 auto;">
+    <iframe src="/tsne_plot.html" width="900" height = "650" style="display: block; margin: 0 auto 20px;"></iframe>
+</div>
+
+Here's we can see the 3 red line's between the **distance** between the queries and the highlighted job posting, and this is what will make the basis of comparison's moving forward. To be more accurate, what is actually represented by the red line is the **Euclidean Distance** between the two points, but in this project we are using the **Cosine Distance** between the two vectors, but for explanation purposes they represent the same thing. 
+
+While this visualization of embeddings in 3 dimensions is useful for this explanation of distance , its not an accurate representation of the actual embeddings and won't provide much insight into the complexity of the data
 ### Techniques
 
 There are several techniques that can be used to extract the key information from a body of text, the most popular being the Named Entity Recognition (NER). NER involves training a model, (LLM or in this case a statistical model) to identify and classify named entities in a text. The NER model we have used and finetuned is from the [spaCy](https://spacy.io/api/entityrecognizer) library, which is a popular NLP library.
@@ -137,6 +156,7 @@ Here's an example of the SCE's for the job posting we visualised above.
 }
 ```
 
+##### Equal Entities
 So to achieve the simplest method of composition, we would take the average of all the SCE's, and treat them all equally.
 
 ```python
@@ -155,6 +175,7 @@ stacked_arrays = np.stack(all_arrays)
 composite_embedding_vector = np.mean(stacked_arrays, axis=0)
 ```
 
+##### Equal Classes
 This approach does work and provide reasonable results for examples like this, but what we gain in simplicity here, we lose in performance. While not the case in this example, there is are many job listings where the balance between the categories is very heavily skewed in one direction. For example, a job posting for a **Full Stack Developer** may only list 3 responsibilities, while listing over 20 tools and frameworks. The CEV from a imbalanced set of entities like this, will not accurately represent the underlying job post. A simple fix for this is to take the average of the SCEs for each category, and then take the average of the resulting vectors to create our CEV.
 
 ```python
@@ -177,6 +198,9 @@ stacked_arrays = np.stack(all_cat_means)
 # Calculate the mean
 composite_embedding_vector = np.mean(stacked_arrays, axis=0)
 ```
+
+##### Custom Class Weighting
+
 For the third approach, we can build on our second approach and add in manual weights (or optimized weights) to each of the categories. This is a bit more complex but can be an effective way to get a good balance between the categories. The only important thing to note here is that all the weights need to add up to 1, and not every category is required to be present in every listing.
 
 ```python
@@ -217,3 +241,28 @@ The approach we took in this project is the second one, as it gives us a good ba
 
 ### Evaluation
 
+When comparing how these 3 different approach, Full Description, Full NER, and SCE, influence the resulting embedding vector, there is two main metrics we can look at. Absolute distance between the same vector across all the approaches, and the relative distance between a set of vectors across all the approaches.
+
+1. Absolute distance between the same vector across all the approaches:
+
+Let $v_F$, $v_N$, and $v_S$ be the embedding vectors for a job posting using Full Description, Full NER, and SCE approaches respectively. We can calculate the cosine similarity between these vectors:
+
+$$ \text{Similarity}(v_1, v_2) = \cos(\theta) = \frac{v_1 \cdot v_2}{|v_1| |v_2|} $$
+
+We can then compare: $$ \text{Sim}(v_F, v_N), \text{Sim}(v_F, v_S), \text{Sim}(v_N, v_S) $$
+
+2. Relative distance between a set of vectors across all the approaches:
+
+For a set of job postings $J = {j_1, j_2, ..., j_n}$, let $V_F$, $V_N$, and $V_S$ be the sets of embedding vectors using Full Description, Full NER, and SCE approaches respectively.
+
+We can compare the pairwise distances within each set:
+
+$$ D_X = {\text{Sim}(v_i, v_j) | v_i, v_j \in V_X, i \neq j} $$
+
+Where $X$ is F, N, or S for each approach.
+
+We can then compare the distributions of $D_F$, $D_N$, and $D_S$ to assess how each approach preserves relative distances between job postings.
+
+These two metrics are related but important for different reasons. The second metric is important for when you are performing any clustering or classification tasks on the resulting vectors using unsupervised learning. You can have a very small relative distance metric, but a large absolute distance metric. However, the reverse is not true, if you have a small absolute distance metric, you must have a low relative distance metric. The absolute distance metric is the more important one for the task we have at hand, due to the fact that we are trying to find the most similar job postings to a given query. That is, we want our job postings to remain in the relative same vector space as much as possible.
+
+It's important to note here that both of these metric's are relative metrics, and we don't have a ground truth (correct embedding) to compare them against. In this case we are using the Full Description embedding $v_F$ as a ground truth. While this is sufficient for the moment, as we discussed above in [Anatomy of a Job Posting](#anatomy-of-a-job-posting), the full description contains information that is not pertinent to the underlying role, this means that the Full Description may not be he best embedding for the task at hand.
