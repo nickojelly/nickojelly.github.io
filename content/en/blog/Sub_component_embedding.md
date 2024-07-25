@@ -54,7 +54,7 @@ In this diagram we have created ~300 embedding vectors for a sample of jobs, and
 
 Here's we can see the 3 red line's between the **distance** between the queries and the highlighted job posting, and this is what will make the basis of comparison's moving forward. To be more accurate, what is actually represented by the red line is the **Euclidean Distance** between the two points, but in this project we are using the **Cosine Distance** between the two vectors, but for explanation purposes they represent the same thing. 
 
-While this visualization of embeddings in 3 dimensions is useful for this simple explanation of distance and embeddings, its does not provide much more than that. All further visualizations will be based on the 3 distances between the job postings and the query, calculated using the Cosine Distance over 1563 dimensional embedding vectors.
+While this visualization of embeddings in 3 dimensions is useful for this simple explanation of distance and embeddings, its does not provide much more than that. All further visualizations will be based on the 3 distances between a job postings and the queries, calculated using the Cosine Distance over 1563 dimensional embedding vectors.
 
 
 ### Techniques
