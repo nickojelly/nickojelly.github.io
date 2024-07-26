@@ -6,18 +6,18 @@ author: ["Nick Barlow"]
 math: true
 ---
 
-VectoredIn is a tool I developed to visualize the job market and job postings from LinkedIn utilising various different tool and techniques from the NLP and LLM space. To read more about the project, look [here]({{< ref "vectoredIn.md" >}}).
+VectoredIn is a tool I developed to visualize the job market and job postings from LinkedIn utilising various tools and techniques from the NLP and LLM space. To read more about the project, look [here]({{< ref "vectoredIn.md" >}}).
 
 
 ###  Data
 
-For this project, I built upon the data from this Kaggle dataset  [here](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings), which originally contained over 100,000 job postings, and I increased this to just over 1 Million individual job postings.
+For this project, I built upon this Kaggle dataset  [here](https://www.kaggle.com/datasets/arshkon/linkedin-job-postings), which originally contained over 100,000 job postings, and I increased this to just over 1 Million individual job postings.
 
-With each job posting having an average of 500 words (600 Tokens) for the description alone, alongside some additional metadata, this is a reasonably large dataset.
+With each job posting having an average of 500 words (600 tokens) for the description alone, alongside some additional metadata, this is a reasonably large dataset.
 
 The main goal of this project was to use LLM's to create a vector representation of each individual job posting, and store these in a open-source vector database from Weaviate. The way a classical embedding process works is that you feed in a body of text (Document, Article, Paper, etc.) and you get out a vector representation of the text. This vector represents the semantic meaning behind the text, with similar articles of text being closer to each other in the vector space.
 
-Having to embed over 600 Million tokens (if we were simply to feed in each full job posting to the model) is pretty inefficient and costly. So, let's have a look at some of the techniques that can be used to reduce the dimensionality of the data.
+Having to embed over 600 million tokens (if we were simply to feed in each full job posting to the model) is pretty inefficient and costly. 
 
 
 #### Anatomy of a Job Posting
@@ -25,10 +25,9 @@ Having to embed over 600 Million tokens (if we were simply to feed in each full 
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-Job postings as a dataset are a semi-structured format of data. They are all quite different from each other, but if we zoom out, they all are made up of the same subcomponents. We can expect a job posting to have a title, responsibilities, skills, qualifications, and tools, all in varying amount. This is alongside some additional text, which is not relevant to the actual role, but more contextual to the company and the hiring process. 
+Job postings are a semi-structured format of data. They are all quite different from each other, but if we zoom out, they all are made up of the same sub-components. We can expect a job posting to have a title, responsibilities, skills, qualifications, and tools, all in varying amounts. This is alongside some additional text, which is not relevant to the actual role, but more contextual to the company and the hiring process. 
 
-The diagram here shows roughly what we would expect to see when we are looking at a job posting, and looking through the lens of trying to reduce the amount of data, we can see a fair bit of text that can be removed, such an general information about the company, the hiring process, and compliance information. While this information may be relevant when applying for a job, it is not relevant to the role itself. So, let's look at some techniques we can use to extract the key information we need.
-
+The diagram here shows roughly what we would expect to see when we are looking at a job posting. With the aim of trying to reduce the amount of data, we can see some text that we can remove, such as general information about the company, the hiring process, and compliance information. While this information may be relevant when applying for a job, it is not relevant to the role itself. 
 
   </div>
   <div style="flex: 1;">
@@ -39,27 +38,29 @@ The diagram here shows roughly what we would expect to see when we are looking a
 
 ### Vector Embedding and Cosine Distance
 
-Let's go over a quick explainer about the process of creating a vector embedding and how we can use it to compare the similarity between two body's of text. When we create an embedding of a body of text, we are creating a vector (array of numbers) that represents the semantic meaning behind the text. These vectors don't contain any meaning by themselves, but they give us the ability to compare the similarity between two bodies of text, by comparing their respective embedding vectors.
+Let's go over a quick explainer about the process of creating a vector embedding and how we can use it to compare the similarity between two bodies of text. When we create an embedding of a body of text, we are creating a vector (array of numbers) that represents the semantic meaning behind the text. These vectors don't contain any meaning by themselves, but they give us the ability to compare the similarity between two bodies of text, by comparing their respective embedding vectors.
 
 <img src="/img/embedding_explainer.png" alt=" Embedding Process" width="900">
 
-In this example we've created embeddings with dimensionality of 3, just to provide us with an easy visual representation. In reality, the embedding will be much larger, the actual dimensionality of the embedding we use is 1563, which is a little harder to visualize than 3 dimensions. 
+In this example, we've created embeddings with a dimensionality of 3, just to provide us with an easy visual representation. In reality, the embedding will be much larger, the actual dimensionality of the embedding we use is 1563, which is a little harder to visualise than 3 dimensions. 
 
-In this diagram we have created ~300 embedding vectors for a sample of jobs, and added in 3 embedding of query's (the job's we are looking for). The query embeddings are the green diamonds, and the specific job posting we are looking at is highlighted in red. 
+In this diagram we have created embedding vectors for a sample of ~300 jobs, and added in 3 queries as embeddings (the job's we are looking for). The query embeddings are the green diamonds, and the specific job posting we are looking at is highlighted in red. 
 
 
 <div style="max-width: 900px; margin: 0 auto;">
     <iframe src="/tsne_plot.html" width="900" height = "650" style="display: block; margin: 0 auto 20px;"></iframe>
 </div>
 
-Here's we can see the 3 red line's between the **distance** between the queries and the highlighted job posting, and this is what will make the basis of comparison's moving forward. To be more accurate, what is actually represented by the red line is the **Euclidean Distance** between the two points, but in this project we are using the **Cosine Distance** between the two vectors, but for explanation purposes they represent the same thing. 
+Here we can see the 3 red lines showing the **distance** between the queries and the highlighted job posting. This is what we will us as our semantic distance moving forward. To be more accurate, what is actually represented by the red line is the **Euclidean Distance** between the two points, but in this project we are using the **Cosine Distance** between the two vectors, but for explanation purposes they represent the same thing. 
 
-While this visualization of embeddings in 3 dimensions is useful for this simple explanation of distance and embeddings, its does not provide much more than that. All further visualizations will be based on the 3 distances between a job postings and the queries, calculated using the Cosine Distance over 1563 dimensional embedding vectors.
+While this visualisation of embeddings in 3 dimensions is useful for this simple explanation of distance and embeddings, its does not provide much more than that. All further visualisations will be based on the 3 distances between a job postings and the queries, calculated using the Cosine Distance over 1563 dimensional embedding vectors.
 
+Lets look at some of the techniques that we can use to extract key information to create our embedding vectors. 
 
 ### Techniques
 
-There are several techniques that can be used to extract the key information from a body of text, the most popular being the Named Entity Recognition (NER). NER involves training a model, (LLM or in this case a statistical model) to identify and classify named entities in a text. The NER model we have used and finetuned is from the [spaCy](https://spacy.io/api/entityrecognizer) library, which is a popular NLP library.
+There are several techniques that can be used to extract the key information from a body of text, the most popular being Named Entity Recognition (NER). NER involves training a model, (LLM or in this case a statistical model) to identify and classify named entities in a text. The NER model we have used and finetuned is from the [spaCy](https://spacy.io/api/entityrecognizer) library, which is a popular NLP library.
+
 #### NER
 
 To utilise NER in this context, we first have to identify the relevant entity categories we want to extract. Some example of these are: `[RESPONSIBILITIES, SKILLS, TOOLS, QUALIFICATIONS]`. We then train the model to identify these entities in the text, and classify them into the relevant categories. Building on our diagram from above, this is a representation of how this model works in relation to our goal of reducing the dimensionality of the data.
@@ -67,24 +68,21 @@ To utilise NER in this context, we first have to identify the relevant entity ca
 <img src="/img/job_ner3.png" alt="3d Plot" width="900">
 
 The benefits of this are twofold:
-1. Reducing the amount of data. The data extracted using NER equates to 30% of the original data, which is a significnant reduction. 
+1. Reducing the amount of data. The data extracted using NER equates to 30% of the original data, which is a significant reduction. 
 2. Removed unrelated information. We have removed a fair amount of the text that is not pertinent to the underlying role, which should increase the quality of the embeddings.
 
-#### Sub Component Embedding
+#### Sub-Component Embedding
 
 Sub-Component Embedding (SCE) builds on our NER technique above, and involves taking the output of the NER model and using it to create a new embedding for each sub component. All these individual embeddings can then be used to create a Composite Embedding Vector (CEV) for the entire job posting. This presents us with three major benefits:
 
-1. Further data reduction. As we now only have to create embeddings for each unique sub-component, we can greatly reduce the amount of data we have to send through a large language model. Alongside this, we have also changed the way this scales with amount of data, scaling logarithmically.
-2. Flexibility. Having the ability to recompile an embedding from a range of sub-components means that we have flexibility in the way we combine the sub components, whether they are all weighted equally, or a weighted relative to their classification.
-3. Visualisation. Having the ability to visualise each subcompoent by it's self, and in relation to the CEV, we can gain an insight into how each of the sub-components relate to the job posting, and the axis we are visualising them on.
-
-
+1. Further data reduction. As we now only have to create embeddings for each unique sub-component, we can greatly reduce the amount of data we have to send through a LLM. Alongside this, we have also changed the way this scales with the amount of data, scaling logarithmically.
+2. Flexibility. Having the ability to recompile an embedding from a range of sub-components means that we have flexibility in the way we combine the sub-components, whether they are all weighted equally, or a weighted relative to their classification.
+3. Visualisation. Having the ability to visualise each sub-component by it's self, and in relation to the CEV, we can gain an insight into how each of the sub-components relate to the job posting, and the axis we are visualising them on.
 
 <img src="/img/sub_component3.png" alt="3d Plot" width="900">
 
 
-Plotting the quantity of token's required to generate embeddings for each of these methods, we can see the impact of our techniques, and how the sub component embedding method is the most efficient. At 1 million Job postings, embedding the full NER of the job posting uses 30% of the tokens that embedding the full description needs. Further, the sub component embedding method uses only 6% of the tokens.
-
+Plotting the quantity of tokens required to generate embeddings for each of these methods, we can see the impact of our techniques, and how the sub-component embedding method is the most efficient. At 1 million job postings, embedding the full NER of the job posting uses 30% of the tokens that embedding the full description needs. Further, the sub-component embedding method uses only 6% of the tokens.
 
 
 <div style="max-width: 800px; margin: 0 auto;">
@@ -245,7 +243,7 @@ The approach we took in this project is the second one, as it gives us a good ba
 
 When comparing how these 3 different approach, Full Description, Full NER, and SCE, influence the resulting embedding vector, there is two main metrics we can look at. Absolute distance between the same vector across all the approaches, and the relative distance between a set of vectors across all the approaches.
 
-1. Absolute distance between the same vector across all the approaches:
+1. Absolute distance between the same vector across all the approaches (Cosine Distance):
 
 Let $v_F$, $v_N$, and $v_S$ be the embedding vectors for a job posting using Full Description, Full NER, and SCE approaches respectively. We can calculate the cosine similarity between these vectors:
 
@@ -268,3 +266,29 @@ We can then compare the distributions of $D_F$, $D_N$, and $D_S$ to assess how e
 These two metrics are related but important for different reasons. The second metric is important for when you are performing any clustering or classification tasks on the resulting vectors using unsupervised learning. You can have a very small relative distance metric, but a large absolute distance metric. However, the reverse is not true, if you have a small absolute distance metric, you must have a low relative distance metric. The absolute distance metric is the more important one for the task we have at hand, due to the fact that we are trying to find the most similar job postings to a given query. That is, we want our job postings to remain in the relative same vector space as much as possible.
 
 It's important to note here that both of these metric's are relative metrics, and we don't have a ground truth (correct embedding) to compare them against. In this case we are using the Full Description embedding $v_F$ as a ground truth. While this is sufficient for the moment, as we discussed above in [Anatomy of a Job Posting](#anatomy-of-a-job-posting), the full description contains information that is not pertinent to the underlying role, this means that the Full Description may not be he best embedding for the task at hand.
+
+With these two main metrics defined lets compare the results of some of our embedding methods:
+
+<div style="max-width: 800px; margin: 0 auto;">
+    <iframe src="/method_comparison.html" width="900" height="600" style="display: block; margin: 0 auto;"></iframe>
+</div>
+
+These results were generated over a reasonably small subset of 10,000 but should give us a fair idea of the impact the different embedding/compositing method's have on our final result. We've added in some less useful vector methods to give us a wider comparison, such as just embedding the title, or the responsibilities, and simply mirroring the original vector. Here we can see that be using a custom weight of our cub-component embedding when creating our CEV,  we can achieve similar distance metrics to the full NER, again while embedding 5 times less data. While we talk about these metric and methods here as akin to "performance", this is only relative performance to the original method, which is embedding the full job posting. So in this case, it would not be fair to draw concrete conclusions about what method is "best" overall, but only to highlight the difference between them and the tradeoff between data efficiency and similarity to the base method. This presents itself as a pretty classical optimization problem, and there are more advanced techniques we will explore in the future when we explore this problem more. 
+
+
+### Further Work
+
+This has been an interesting introduction for myself when exploring the world of vector databases, embedding models, NER and LLMs, theres still a lot of improvement that can be made to this method, and the VectoredIn project overall. A few of these areas worth considering are:
+- Improving the NER, and changing from spaCy to a finetuned BERT or DistiBERT.
+- Optimizing the custom HNSW search algorithm to allow for filtering.
+- Exploring more a robust "ground-truth", apart from comparison to embedding the full listing.
+- Two stage preprocessing, grouping very similar entities together to only embed them once.
+- Classification, creating classes and classification model to get standardized titles.
+- Job fit, being able to retrieve job listings that best match a candidate.
+- Overall memory/server optimization, it's veeery slow. 
+
+So if you are interested in any of the above, keep your eyes peeled for updated.
+
+As always, with any questions or insights, you can reach me at nick@nbdata.co
+
+Thanks for reading!
