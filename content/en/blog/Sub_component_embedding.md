@@ -291,8 +291,9 @@ This has been an interesting introduction for myself when exploring the world of
 - Job fit, being able to retrieve job listings that best match a candidate.
 - Overall memory/server optimization, it's veeery slow. 
 
-So if you are interested in any of the above, keep your eyes peeled for updats.
+So if you are interested in any of the above, keep your eyes peeled for updates.
 
 As always, with any questions or insights, you can reach me at nick@nbdata.co
 
 Thanks for reading!
+
