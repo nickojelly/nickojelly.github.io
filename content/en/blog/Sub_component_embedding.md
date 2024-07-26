@@ -243,7 +243,7 @@ The approach we took in this project is the second one, as it gives us a good ba
 
 ### Evaluation
 
-When comparing how these 3 different approach, Full Description, Full NER, and SCE, influence the resulting embedding vector, there is two main metrics we can look at. Absolute distance between the same vector across all the approaches, and the relative distance between a set of vectors across all the approaches.
+When comparing how these 3 different approaches, Full Description, Full NER, and SCE, influence the resulting embedding vector, there are two main metrics we can look at. Absolute distance between the same vector across all the approaches, and the relative distance between a set of vectors in one embedding compared to the distance of the same set in another. 
 
 1. Absolute distance between the same vector across all the approaches (Cosine Distance):
 
@@ -267,7 +267,7 @@ We can then compare the distributions of $D_F$, $D_N$, and $D_S$ to assess how e
 
 These two metrics are related but important for different reasons. The second metric is important for when you are performing any clustering or classification tasks on the resulting vectors using unsupervised learning. You can have a very small relative distance metric, but a large absolute distance metric. However, the reverse is not true, if you have a small absolute distance metric, you must have a low relative distance metric. The absolute distance metric is the more important one for the task we have at hand, due to the fact that we are trying to find the most similar job postings to a given query. That is, we want our job postings to remain in the relative same vector space as much as possible.
 
-It's important to note here that both of these metrics are relative metrics, and we don't have a ground truth (correct embedding) to compare them against. In this case we are using the Full Description embedding $v_F$ as a ground truth. While this is sufficient for the moment, as we discussed above in [Anatomy of a Job Posting](#anatomy-of-a-job-posting), the full description contains information that is not pertinent to the underlying role, this means that the Full Description may not be he best embedding for the task at hand.
+It's important to note here that both of these metrics are relative metrics, and we don't have a ground truth (correct embedding) to compare them against. In this case we are using the Full Description embedding $v_F$ as a ground truth. While this is sufficient for the moment, as we discussed above in [Anatomy of a Job Posting](#anatomy-of-a-job-posting), the full description contains information that is not pertinent to the underlying role, this means that the Full Description may not be the best embedding for the task at hand.
 
 With these two main metrics defined lets compare the results of some of our embedding methods:
 
@@ -275,15 +275,15 @@ With these two main metrics defined lets compare the results of some of our embe
     <iframe src="/method_comparison.html" width="900" height="600" style="display: block; margin: 0 auto;"></iframe>
 </div>
 
-These results were generated over a reasonably small subset of 10,000 but should give us a fair idea of the impact the different embedding/compositing method's have on our final result. We've added in some less useful vector methods to give us a wider comparison, such as just embedding the title, or the responsibilities, and simply mirroring the original vector. Here we can see that be using a custom weight of our cub-component embedding when creating our CEV,  we can achieve similar distance metrics to the full NER, again while embedding 5 times less data.
+These results were generated over a reasonably small subset of 10,000 but should give us a fair idea of the impact the different embedding/compositing methods have on our final result. We've added in some less useful vector methods to give us a wider comparison, such as just embedding the title, or the responsibilities, and simply mirroring the original vector. Here we can see that using a custom weight of our cub-component embedding when creating our CEV,  we can achieve similar distance metrics to the full NER, again while embedding 5 times less data.
 
- While we talk about these metric and methods here as akin to "performance", this is only relative performance to the original method, which is embedding the full job posting. So in this case, it would not be fair to draw concrete conclusions about what method is "best" overall, but only to highlight the difference between them and the tradeoff between data efficiency and similarity to the base method. This presents itself as a pretty classical optimization problem, and there are more advanced techniques we will explore in the future when we explore this problem more. 
+ While we talk about these metric and methods here as akin to "performance", this is only relative performance to the original method, which is embedding the full job posting. So in this case, it would not be fair to draw concrete conclusions about what method is "best" overall, but only to highlight the difference between them and the tradeoff between data efficiency and similarity to the base method. This presents itself as a pretty classical optimization problem, and there are more advanced techniques we will look at in the future.
 
 
 ### Further Work
 
-This has been an interesting introduction for myself when exploring the world of vector databases, embedding models, NER and LLMs, theres still a lot of improvement that can be made to this method, and the VectoredIn project overall. A few of these areas worth considering are:
-- Improving the NER, and changing from spaCy to a finetuned BERT or DistiBERT.
+This has been an interesting introduction for myself when exploring the world of vector databases, embedding models, NER and LLMs. However there's still a lot of improvement that can be made to this method, and the VectoredIn project overall. A few of these areas worth considering are:
+- Improving the NER, and changing from spaCy to a finetuned BERT or DistilBERT.
 - Optimizing the custom HNSW search algorithm to allow for filtering.
 - Exploring more a robust "ground-truth", apart from comparison to embedding the full listing.
 - Two stage preprocessing, grouping very similar entities together to only embed them once.
@@ -291,7 +291,7 @@ This has been an interesting introduction for myself when exploring the world of
 - Job fit, being able to retrieve job listings that best match a candidate.
 - Overall memory/server optimization, it's veeery slow. 
 
-So if you are interested in any of the above, keep your eyes peeled for updated.
+So if you are interested in any of the above, keep your eyes peeled for updats.
 
 As always, with any questions or insights, you can reach me at nick@nbdata.co
 

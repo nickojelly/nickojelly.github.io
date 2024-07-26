@@ -9,8 +9,6 @@ Welcome to VectoredIn! It aims to provide a powerful tool for analyzing and visu
 
 See it live! https://app.nbdata.co
 
-Weaviate: https://weaviate.io/
-
 ###  Project Overview
 
 VectoredIn is a web application that allows users to explore and gain insights from job market data. It leverages the power of natural language processing (NLP) and machine learning techniques to process and analyze job listings. 
