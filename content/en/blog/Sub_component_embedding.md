@@ -93,7 +93,9 @@ Plotting the quantity of tokens required to generate embeddings for each of thes
 ### Visualisation
 
 
-One of the main benefits of utilising sub-component embedding is that when we are visualising the semantic distance between each of the sub-components, we can see how they relate to the overall job posting. ### In the diagram below, we can see how each of the individual sub-components relate to each of the user defined axis. Further, we can see how the composite embedding vector relates to each of the sub-components, and the axis. The below diagram illustrates the relationships.
+One of the main benefits of utilising sub-component embedding is that when we are visualising the semantic distance between each of the sub-components, we can see how they relate to the overall job posting.
+
+In the diagram below, we can see the cosine distances and relationship between each of the individual sub-components and the three axis.  Further, we can see how the composite embedding vector relates to each of the sub-components, and the axis. 
 
 
 <div style="max-width: 900px; margin: 0 auto;">
@@ -106,16 +108,16 @@ The first diagram represents a range of job postings and their relative relation
 For example we can see that one of the sub-components **Experience in data management and automation** is more related to the **Data Science** and **Machine Learning Engineer** axis, in comparison to the **Accountant** axis, despite this being a job posting very related to an **Accountant** role. But the composite embedding takes into account all the sub components, including some very related to the **Accountant** role, such as **Bachelors Degree in Accounting or Business related field**. Try hovering on the points above to see how this is represented in the diagram.
 
 
-An important point to note here, is that while we talk about the Composite Embedding Vector (CEV) as an average of the Sub Component Embeddings (SCE), we do not expect the cosine distance of the CEV to be the average of the cosine distance of the SCE's. This is because the CEV represents a new point in the high-dimensional embedding space that captures the aggregate semantic meaning of all sub-components. All the vectors here are represented in a vector space of 1536 dimensions, from the new OpenAI `'text-embedding-3-small'` model.
+An important point to note here, is that while we talk about the Composite Embedding Vector (CEV) as an average of the Sub Component Embeddings (SCE), we do not expect the cosine distance of the CEV to be the average of the cosine distance of the SCEs. This is because the CEV represents a new point in the high-dimensional embedding space that captures the aggregate semantic meaning of all sub-components. All the vectors here are represented in a vector space of 1536 dimensions, from the new OpenAI `'text-embedding-3-small'` model.
 
 
 
 ### Compositing Embedding Vectors
 
 
-As mentioned above, when we are compositing a new vector from SCE's, there are many different methods we can use. The simplest of which would be to take the average of all the SCE's as they are and treat them all equally. 
+As mentioned above, when we are compositing a new vector from SCEs, there are many different methods we can use. The simplest of which would be to take the average of all the SCEs as they are and treat them all equally. 
 
-Here's an example of the SCE's for the job posting we visualised above.
+Here's an example of the SCEs for the job posting we visualised above.
 
 ```python
 {    
@@ -157,7 +159,7 @@ Here's an example of the SCE's for the job posting we visualised above.
 ```
 
 ##### Equal Entities
-So to achieve the simplest method of composition, we would take the average of all the SCE's, and treat them all equally.
+So to achieve the simplest method of composition, we would take the average of all the SCEs, and treat them all equally.
 
 ```python
 import numpy as np
@@ -265,7 +267,7 @@ We can then compare the distributions of $D_F$, $D_N$, and $D_S$ to assess how e
 
 These two metrics are related but important for different reasons. The second metric is important for when you are performing any clustering or classification tasks on the resulting vectors using unsupervised learning. You can have a very small relative distance metric, but a large absolute distance metric. However, the reverse is not true, if you have a small absolute distance metric, you must have a low relative distance metric. The absolute distance metric is the more important one for the task we have at hand, due to the fact that we are trying to find the most similar job postings to a given query. That is, we want our job postings to remain in the relative same vector space as much as possible.
 
-It's important to note here that both of these metric's are relative metrics, and we don't have a ground truth (correct embedding) to compare them against. In this case we are using the Full Description embedding $v_F$ as a ground truth. While this is sufficient for the moment, as we discussed above in [Anatomy of a Job Posting](#anatomy-of-a-job-posting), the full description contains information that is not pertinent to the underlying role, this means that the Full Description may not be he best embedding for the task at hand.
+It's important to note here that both of these metrics are relative metrics, and we don't have a ground truth (correct embedding) to compare them against. In this case we are using the Full Description embedding $v_F$ as a ground truth. While this is sufficient for the moment, as we discussed above in [Anatomy of a Job Posting](#anatomy-of-a-job-posting), the full description contains information that is not pertinent to the underlying role, this means that the Full Description may not be he best embedding for the task at hand.
 
 With these two main metrics defined lets compare the results of some of our embedding methods:
 
@@ -273,7 +275,9 @@ With these two main metrics defined lets compare the results of some of our embe
     <iframe src="/method_comparison.html" width="900" height="600" style="display: block; margin: 0 auto;"></iframe>
 </div>
 
-These results were generated over a reasonably small subset of 10,000 but should give us a fair idea of the impact the different embedding/compositing method's have on our final result. We've added in some less useful vector methods to give us a wider comparison, such as just embedding the title, or the responsibilities, and simply mirroring the original vector. Here we can see that be using a custom weight of our cub-component embedding when creating our CEV,  we can achieve similar distance metrics to the full NER, again while embedding 5 times less data. While we talk about these metric and methods here as akin to "performance", this is only relative performance to the original method, which is embedding the full job posting. So in this case, it would not be fair to draw concrete conclusions about what method is "best" overall, but only to highlight the difference between them and the tradeoff between data efficiency and similarity to the base method. This presents itself as a pretty classical optimization problem, and there are more advanced techniques we will explore in the future when we explore this problem more. 
+These results were generated over a reasonably small subset of 10,000 but should give us a fair idea of the impact the different embedding/compositing method's have on our final result. We've added in some less useful vector methods to give us a wider comparison, such as just embedding the title, or the responsibilities, and simply mirroring the original vector. Here we can see that be using a custom weight of our cub-component embedding when creating our CEV,  we can achieve similar distance metrics to the full NER, again while embedding 5 times less data.
+
+ While we talk about these metric and methods here as akin to "performance", this is only relative performance to the original method, which is embedding the full job posting. So in this case, it would not be fair to draw concrete conclusions about what method is "best" overall, but only to highlight the difference between them and the tradeoff between data efficiency and similarity to the base method. This presents itself as a pretty classical optimization problem, and there are more advanced techniques we will explore in the future when we explore this problem more. 
 
 
 ### Further Work
